@@ -52,7 +52,6 @@ Programmer: Saile Daimwood
 			}
 			return retVal;
 		}
-		console.log('Should see 2: ', howSwedish('abbabba'));
 		console.assert(0 == howSwedish('no'));
 		console.assert(1 == howSwedish('axxc AbBa Xx'));
 		console.assert(2 == howSwedish('abbabba'));
@@ -75,14 +74,25 @@ Programmer: Saile Daimwood
 		//
 		function mirrorEnds(str) {
 			incrementer = 0;
-			decrementer = str.length();
+			decrementer = str.length - 1;
 			retString = "";
-			for(i = 0; i < str.length; i++){
-				
+			for (i = 0; i < str.length; i++) {
+				if (str.charAt(incrementer) == str.charAt(decrementer)) {
+					retString += str.charAt(incrementer);
+				} else {
+					break;
+				}
+				incrementer++;
+				decrementer--;
 			}
-			
+
 			return retString;
 		}
+
+		console.assert("" == mirrorEnds(""));
+		console.assert("" == mirrorEnds("abcde"));
+		console.assert("a" == mirrorEnds("abca"));
+		console.assert("aba" == mirrorEnds("aba"));
 
 		// 3) isStringSorted
 		// Given a String, return true if the letters are in ascending order.
@@ -94,8 +104,22 @@ Programmer: Saile Daimwood
 		// isStringSorted("12321") returns false
 		function isStringSorted(str) {
 			// TODO: Complete this method
-			return !true;
+			ret = true;
+			for (i = 1; i < str.length; i++) {
+				if (str.charAt(i) >= str.charAt(i - 1)) {
+					continue;
+				} else {
+					return false;
+				}
+			}
+			return ret;
 		}
+
+		console.assert(isStringSorted(""));
+		console.assert(isStringSorted("a"));
+		console.assert(isStringSorted("abbcddef"));
+		console.assert(isStringSorted("123456"));
+		console.assert(!isStringSorted("12321"));
 
 		// 4) maxBlock
 		// Given a string, return the length of the largest "block" in the string.
@@ -105,18 +129,56 @@ Programmer: Saile Daimwood
 		// maxBlock("") returns 0
 		//
 		function maxBlock(str) {
-			// TODO: Complete this method
-			return -999;
+			var n = 0;
+			var max = 0;
+			var inClump = false;
+			str = str.toLowerCase();
+			for (i = 1; i < str.length; i++) {
+				if (inClump == true && str.charAt(i) == str.charAt(i - 1)) {
+					n++;
+					if (n > max) {
+						max = n;
+					}
+				} else if (str.charAt(i) == str.charAt(i - 1)) {
+					n = 2;
+					inClump = true;
+					if(max == 0){
+						max = 2;
+					}
+				} else {
+					inClump = false;
+					n = 0;
+				}
+			}
+			return max;
 		}
+
+		console.assert(2 == maxBlock("hoopla"));
+		console.assert(3 == maxBlock("abbCCCddBBBxx"));
+		console.assert(0 == maxBlock(""));
+		console.assert(7 == maxBlock("aaabbbbbbb"));
 
 		// 5) isArraySorted
 		// Given an array , return true if the element are in ascending order.
 		// Note: 'abe' < 'ben' and 5 > 3
 		// Precondition arr has all the same type of elements
 		function isArraySorted(arr) {
-			// TODO: Complete this method
-			return !true;
+			ret = true;
+			for (i = 1; i < arr.length; i++) {
+				if (arr[i] >= arr[i-1]) {
+					continue;
+				} else {
+					return false;
+				}
+			}
+			return ret;
 		}
+		console.assert(isArraySorted([]));
+		console.assert(isArraySorted(["a"]));
+		console.assert(isArraySorted(["a","b","b","c","d","d","e","f"]));
+		console.assert(isArraySorted([1,2,3,4,5,6]));
+		console.assert(!isArraySorted([1,2,3,2,1]));
+		
 
 		// 6) numberOfPairs
 		// Return the number of times a pair occurs in array. A pair is any two String values that are equal (case
@@ -130,9 +192,21 @@ Programmer: Saile Daimwood
 		// numberOfPairs( array ('a') ) returns 0
 		// Precondition: arr has all the same type of elements
 		function numberOfPairs(arr) {
-			// TODO: Complete this method
-			return -999;
+			var n = 0;
+			for (i = 1; i < arr.length; i++) {
+ 				if (arr[i] == arr[i - 1]) {
+					n++;
+				}
+			}
+			return n;
 		}
+		
+		console.assert(0 == numberOfPairs(['a', 'b', 'c']));
+		console.assert(2 == numberOfPairs(['a', 'a', 'a']));
+		console.assert(2 == numberOfPairs(['a', 'a', 'b', 'b']));
+		console.assert(0 == numberOfPairs([]));
+		console.assert(0 == numberOfPairs(['a']));
+		console.assert(3 == numberOfPairs(['a', 'b', 'b', 'b', 'a', 'a']));
 
 		// 7) frequency(array)
 		// Given an  array of integers in the range of 0..10 (like quiz scores), 
@@ -142,8 +216,11 @@ Programmer: Saile Daimwood
 		//
 		// Precondition: array has valid ints in the range of 0..10
 		function frequency(array) {
-			// TODO: Complete this method
-			return [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+			var ret = [0,0,0,0,0,0,0,0,0,0,0];		
+			for(i = 0; i < array.length; i++){
+				ret[array[i]]++;
+			}
+			return ret;
 		}
 
 		// 8) shiftNTimes(array, numShifts)
@@ -195,11 +272,26 @@ Programmer: Saile Daimwood
 		//  countClumps(array ( 1, 2, 3) ) returns 0
 		//  countClumps(array ( 2) ) returns 0
 		function countClumps(arr) {
-			// TODO: Complete this function 	
-			return -999;
+			var n = 0;
+			var inClump = false;
+			for (i = 1; i < arr.length; i++) {
+				if (inClump == true && arr[i] == arr[i - 1]) {
+					continue;
+				} else if (arr[i] == arr[i - 1]) {
+					n++;
+					inClump = true;
+				} else {
+					inClump = false;
+				}
+			}
+			return n;
 		}
-		// console.assert(0, countClumps[ 1, 2, 3]);
-		// console.assert(1, countClumps[ 1, 2, 2, 2, 2, 3]);
+		console.assert(0 == countClumps([ 1, 2, 3 ]));
+		console.assert(1 == countClumps([ 1, 2, 2, 2, 2, 3 ]));
+		console.assert(2 == countClumps([ 1, 2, 2, 3, 4, 4 ]));
+		console.assert(2 == countClumps([ 1, 1, 2, 1, 1 ]));
+		console.assert(1 == countClumps([ 1, 1, 1, 1, 1 ]));
+		console.assert(0 == countClumps([ 2 ]));
 
 		// 11) evenOdd(array)
 		//
