@@ -142,7 +142,7 @@ Programmer: Saile Daimwood
 				} else if (str.charAt(i) == str.charAt(i - 1)) {
 					n = 2;
 					inClump = true;
-					if(max == 0){
+					if (max == 0) {
 						max = 2;
 					}
 				} else {
@@ -165,7 +165,7 @@ Programmer: Saile Daimwood
 		function isArraySorted(arr) {
 			ret = true;
 			for (i = 1; i < arr.length; i++) {
-				if (arr[i] >= arr[i-1]) {
+				if (arr[i] >= arr[i - 1]) {
 					continue;
 				} else {
 					return false;
@@ -174,11 +174,11 @@ Programmer: Saile Daimwood
 			return ret;
 		}
 		console.assert(isArraySorted([]));
-		console.assert(isArraySorted(["a"]));
-		console.assert(isArraySorted(["a","b","b","c","d","d","e","f"]));
-		console.assert(isArraySorted([1,2,3,4,5,6]));
-		console.assert(!isArraySorted([1,2,3,2,1]));
-		
+		console.assert(isArraySorted([ "a" ]));
+		console
+				.assert(isArraySorted([ "a", "b", "b", "c", "d", "d", "e", "f" ]));
+		console.assert(isArraySorted([ 1, 2, 3, 4, 5, 6 ]));
+		console.assert(!isArraySorted([ 1, 2, 3, 2, 1 ]));
 
 		// 6) numberOfPairs
 		// Return the number of times a pair occurs in array. A pair is any two String values that are equal (case
@@ -194,19 +194,19 @@ Programmer: Saile Daimwood
 		function numberOfPairs(arr) {
 			var n = 0;
 			for (i = 1; i < arr.length; i++) {
- 				if (arr[i] == arr[i - 1]) {
+				if (arr[i] == arr[i - 1]) {
 					n++;
 				}
 			}
 			return n;
 		}
-		
-		console.assert(0 == numberOfPairs(['a', 'b', 'c']));
-		console.assert(2 == numberOfPairs(['a', 'a', 'a']));
-		console.assert(2 == numberOfPairs(['a', 'a', 'b', 'b']));
+
+		console.assert(0 == numberOfPairs([ 'a', 'b', 'c' ]));
+		console.assert(2 == numberOfPairs([ 'a', 'a', 'a' ]));
+		console.assert(2 == numberOfPairs([ 'a', 'a', 'b', 'b' ]));
 		console.assert(0 == numberOfPairs([]));
-		console.assert(0 == numberOfPairs(['a']));
-		console.assert(3 == numberOfPairs(['a', 'b', 'b', 'b', 'a', 'a']));
+		console.assert(0 == numberOfPairs([ 'a' ]));
+		console.assert(3 == numberOfPairs([ 'a', 'b', 'b', 'b', 'a', 'a' ]));
 
 		// 7) frequency(array)
 		// Given an  array of integers in the range of 0..10 (like quiz scores), 
@@ -216,8 +216,8 @@ Programmer: Saile Daimwood
 		//
 		// Precondition: array has valid ints in the range of 0..10
 		function frequency(array) {
-			var ret = [0,0,0,0,0,0,0,0,0,0,0];		
-			for(i = 0; i < array.length; i++){
+			var ret = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+			for (i = 0; i < array.length; i++) {
 				ret[array[i]]++;
 			}
 			return ret;
@@ -236,8 +236,15 @@ Programmer: Saile Daimwood
 		// shiftNTimes( array(3), 5) modifies array to (3)
 		//
 		function shiftNTimes(nums, numShifts) {
-			// TODO: Complete this method.  Modify array here, do not return anything.
+			console.log(nums);
+			for (i = 0; i < numShifts; i++) {
+				nums.unshift(nums.pop());
+			}
+			console.log(nums);
 		}
+		//1, 2, 3, 4, 5, 6, 7    <-    3
+		//4, 5, 6, 7, 1, 2 ,3
+		shiftNTimes([ 1, 2, 3, 4, 5, 6, 7 ], 3);
 
 		// 9) addToSet
 		// Complete method addToSet(set, number) such that number is added
@@ -245,23 +252,27 @@ Programmer: Saile Daimwood
 		//
 		// Precondition: each argument is alway a number.  No type mixing
 		function addToSet(set, number) {
-			// TODO: Complete this method. Modify set here, do not return anything. 
+			for (i = 0; i < set.length; i++) {
+				if (set[i] == number) {
+					return;
+				}
+			}
+			set.push(number);
 
 		}
-		/* set = [];
-		 addToSet(set, 5)
-		 addToSet(set, 4)
-		 addToSet(set, 4)
-		 addToSet(set, 3)
-		 addToSet(set, 3)
-		 addToSet(set, 2)
-		 addToSet(set, 2)
-		 console.assert(5 == set[0]); 
-		 console.assert(4 == set[1]); 
-		 console.assert(3 == set[2]); 
-		 console.assert(2 == set[3]); 
-		 console.assert(4, set.length)
-		 */
+		set = [];
+		addToSet(set, 5)
+		addToSet(set, 4)
+		addToSet(set, 4)
+		addToSet(set, 3)
+		addToSet(set, 3)
+		addToSet(set, 2)
+		addToSet(set, 2)
+		console.assert(5 == set[0]);
+		console.assert(4 == set[1]);
+		console.assert(3 == set[2]);
+		console.assert(2 == set[3]);
+		console.assert(4 == set.length)
 
 		// 10)  Say that a "clump" in an array is a series of 2 or more adjacent elements of the same value. 
 		// Return the number of clumps in the given array.  
@@ -304,14 +315,40 @@ Programmer: Saile Daimwood
 		//
 		// Precondition: All array elements are integers (whole nmbers)
 		function evenOdd(array) {
-			// TODO: Complete this function 	 
+			var copyInto = [];
+			for (i = 0; i < array.length; i++) {
+				if (array[i] % 2 == 1) {
+					x = array[i];
+					copyInto.push(x);
+				} else if (array[i] % 2 == 0) {
+					x = array[i];
+					copyInto.unshift(x);
+				}
+			}
+
+			for (i = 0; i < array.length; i++) {
+				array[i] = copyInto[i];
+			}
 		}
-		// var array = [3, 2, 3, 2];
-		// evenOdd(array);
-		// console.assert(array[0] == 2);
-		// console.assert(array[1] == 2);
-		// console.assert(array[2] == 3);
-		// console.assert(array[3] == 3);
+		var array = [ 3, 2, 3, 2 ];
+		evenOdd(array);
+		console.assert(array[0] == 2);
+		console.assert(array[1] == 2);
+		console.assert(array[2] == 3);
+		console.assert(array[3] == 3);
+
+		var array = [ 3, 5, 7, 2, 2, 2, 2, 9, 2, 2 ];
+		evenOdd(array);
+		console.assert(array[0] == 2);
+		console.assert(array[1] == 2);
+		console.assert(array[2] == 2);
+		console.assert(array[3] == 2);
+		console.assert(array[4] == 2);
+		console.assert(array[5] == 2);
+		console.assert(array[6] == 3);
+		console.assert(array[7] == 5);
+		console.assert(array[8] == 7);
+		console.assert(array[9] == 9);
 
 		// 12) writeAshape
 		//
@@ -331,8 +368,27 @@ Programmer: Saile Daimwood
 		//
 		// Precondition: n >= 1 and ch is not a empty string or a space
 		function writeAShape(n, ch) {
-			// TODO: Complete this method so it write the triangle to the web page. No console.asserts needed.
+			writeAShapeHelper(n, ch, 1);
 		}
+
+		function writeAShapeHelper(n, ch, curr) {
+			if (n == 1) {
+				for (i = 0; i < curr * 2 - 1; i++) {
+					document.write(ch);
+				}
+			} else {
+				for (j = 0; j < n - 1; j++) {
+					document.write('&ensp;');
+				}
+				for (i = 0; i < curr * 2 - 1; i++) {
+					document.write(ch);
+				}
+				document.write("<br>");
+				writeAShapeHelper(n - 1, ch, curr + 1);
+			}
+		}
+
+		writeAShape(6, 'x');
 	</script>
 
 </body>
